@@ -13,7 +13,7 @@ myRepo = "http://cran.r-project.org"
 if (length(find.package('MASS', quiet = T)) == 0)    install.packages("MASS", repos = myRepo)
 if (length(find.package('car', quiet = T)) == 0)     install.packages("car", repos = myRepo)
 if (length(find.package('mvtnorm', quiet = T)) == 0) install.packages("mvtnorm", repos = myRepo)
-if (length(find.package('bayesm', quiet = T)) == 0)  install.packages("mvtnorm", repos = myRepo)
+if (length(find.package('bayesm', quiet = T)) == 0)  install.packages("bayesm", repos = myRepo)
 
 library(MASS)
 library(car)
