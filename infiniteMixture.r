@@ -13,7 +13,7 @@ myRepo = "http://cran.r-project.org"
 if (length(find.package('MASS', quiet = T)) == 0)    install.packages("MASS", repos = myRepo)
 if (length(find.package('car', quiet = T)) == 0)     install.packages("car", repos = myRepo)
 if (length(find.package('mvtnorm', quiet = T)) == 0) install.packages("mvtnorm", repos = myRepo)
-if (length(find.package('bayesm', quiet = T)) == 0)  install.packages("mvtnorm", repos = myRepo)
+if (length(find.package('bayesm', quiet = T)) == 0)  install.packages("bayesm", repos = myRepo)
 
 library(MASS)
 library(car)
@@ -82,7 +82,7 @@ n = as.vector(table(z))
 
 # initialize cluster means and variances
 phi = matrix(nrow = K, ncol = 2)
-phiv = as.list(NULL)
+phiv = list()
 
 for (i in 1:K){
     phi[i,]   = c(mean(x[,1]) + rnorm(1, sd = 2), mean(x[,2]) + rnorm(1, sd = 2))
@@ -101,8 +101,8 @@ alpha0  = 1
 nu0     = rep(1, K)
 kappa0  = rep(1, K)
 
-lambda0 = as.list(NULL)
-mu0     = as.list(NULL)
+lambda0 = list()
+mu0     = list()
 for (i in 1:K){
     lambda0[[i]] = diag(1,2)
     mu0[[i]]     = c(1,1)
@@ -129,9 +129,9 @@ for (counter in 1:simIterations){
   }
 
   # helper indices; data, grouped by cluster; init sum of squares matrices
-  areK = as.list(NULL)
-  xNew = as.list(NULL)
-  S    = as.list(NULL)
+  areK = list()
+  xNew = list()
+  S    = list()
   for (i in 1:K){
     areK[[i]] = which(z == i)
     n[i]      = length(areK[[i]])
@@ -154,8 +154,8 @@ for (counter in 1:simIterations){
   # update parameters after observing data
   kappa  = rep(NA, K)
   nu     = rep(NA, K)
-  lambda = as.list(NULL)
-  mu     = as.list(NULL)
+  lambda = list()
+  mu     = list()
   for (i in 1:K){ 
     kappa[i]    = kappa0[i] + n[i]
     nu[i]       = nu0[i] + n[i]
